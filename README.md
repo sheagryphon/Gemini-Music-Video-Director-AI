@@ -76,34 +76,34 @@ This page is designed to create a single, compelling shot that bridges two exist
 ### Full Music Video Generator
 The main interface for generating a full music video shot list from your creative inputs.
 
-![Full Music Video Generator](./images/full-music-video-generator.jpg)
+![Full Music Video Generator](images/full-music-video-generator.jpg)
 
 ### Scene Transition Generator
 The interface for generating a transition between two video scenes.
 
-![Scene Transition Generator](./images/scene-transition-generator.jpg)
+![Scene Transition Generator](images/scene-transition-generator.jpg)
 
 ### Scene Transition Output Example
 An example of a generated transition sequence, bridging two scenes with a new creative shot.
 
-![Scene Transition Output Example](./images/scene-transition-output-example.jpg)
+![Scene Transition Output Example](images/scene-transition-output-example.jpg)
 
 ### Prompt Format Examples
 
 #### Midjourney
 An example of a generated shot list with prompts formatted for Midjourney.
 
-![Midjourney Prompt Example](./images/midjourney-prompt-example.jpg)
+![Midjourney Prompt Example](images/midjourney-prompt-example.jpg)
 
 #### Stable Diffusion 1.5
 An example of a generated shot list with prompts formatted for Stable Diffusion 1.5.
 
-![Stable Diffusion 1.5 Prompt Example](./images/stable-diffusion-1.5-prompt-example.jpg)
+![Stable Diffusion 1.5 Prompt Example](images/stable-diffusion-1.5-prompt-example.jpg)
 
 #### FLUX AI
 An example of a generated shot list with prompts formatted for FLUX AI.
 
-![FLUX AI Prompt Example](./images/flux-ai-prompt-example.jpg)
+![FLUX AI Prompt Example](images/flux-ai-prompt-example.jpg)
 
 ## Credit & Support
 
