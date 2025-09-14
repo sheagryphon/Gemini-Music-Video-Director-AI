@@ -3,6 +3,7 @@ export interface FormState {
   songFile: File | null;
   lyricsFile: File | null;
   actorImageFile: File | null;
+  actorName: string;
   directorialStyle: string;
   videoStyle: string;
   artStyle: string;

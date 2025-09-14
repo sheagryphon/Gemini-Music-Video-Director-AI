@@ -99,6 +99,21 @@ const InputForm: React.FC<InputFormProps> = ({ formState, setFormState }) => {
         </div>
         
         <div>
+            <label htmlFor="actorName" className="block text-sm font-medium text-cyan-400 mb-2">
+            Actor/Singer's Name (Optional)
+            </label>
+            <input
+            type="text"
+            id="actorName"
+            name="actorName"
+            value={formState.actorName}
+            onChange={handleInputChange}
+            placeholder="e.g., Florence Welch"
+            className="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-colors"
+            />
+        </div>
+
+        <div>
             <label htmlFor="directorialStyle" className="block text-sm font-medium text-cyan-400 mb-2">
             Directorial Style
             </label>

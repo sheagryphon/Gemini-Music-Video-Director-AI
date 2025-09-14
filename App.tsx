@@ -16,6 +16,7 @@ const App: React.FC = () => {
     songFile: null,
     lyricsFile: null,
     actorImageFile: null,
+    actorName: '',
     directorialStyle: '',
     videoStyle: '',
     artStyle: '',
@@ -112,6 +113,7 @@ const App: React.FC = () => {
 - **Song File**: ${formState.songFile?.name || 'N/A'}
 - **Lyrics File**: ${formState.lyricsFile?.name || 'N/A'}
 - **Actor/Singer Image**: ${formState.actorImageFile?.name || 'N/A'}
+- **Actor/Singer Name**: ${formState.actorName || 'N/A'}
 - **Directorial Style**: ${formState.directorialStyle}
 - **Music Video Style**: ${formState.videoStyle}
 - **Artistic Style**: ${formState.artStyle}
@@ -150,6 +152,7 @@ ${shot.imagePrompt}
 Song File: ${formState.songFile?.name || 'N/A'}
 Lyrics File: ${formState.lyricsFile?.name || 'N/A'}
 Actor/Singer Image: ${formState.actorImageFile?.name || 'N/A'}
+Actor/Singer Name: ${formState.actorName || 'N/A'}
 Directorial Style: ${formState.directorialStyle}
 Music Video Style: ${formState.videoStyle}
 Artistic Style: ${formState.artStyle}

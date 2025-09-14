@@ -78,7 +78,7 @@ export const generateShotList = async (formState: FormState): Promise<Shot[]> =>
     - **Music Video Genre/Style**: ${formState.videoStyle}
     - **Artistic Style**: ${formState.artStyle}. This is a crucial element. All visual descriptions and prompts must strongly reflect this style.
     - **Video Format**: ${formState.format === 'vertical' ? 'Vertical 9:16' : 'Horizontal 16:9'}. All shot descriptions and prompts must be tailored for this aspect ratio.
-    - **Lead Actor/Singer**: The lead artist is depicted in the provided image. Analyze their look, mood, and style to inform the video's aesthetic, which should also heavily feature the chosen artistic style.
+    - **Lead Actor/Singer**: The lead artist is depicted in the provided image. ${formState.actorName ? `Their name is ${formState.actorName}. ` : ''}Analyze their look, mood, and style to inform the video's aesthetic, which should also heavily feature the chosen artistic style.
 
     Your tasks are:
     1.  Break down the entire song into sequential ${formState.shotLength}-second segments and create a comprehensive shot list. For each segment, provide a detailed plan.
