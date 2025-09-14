@@ -50,7 +50,7 @@ This page helps you generate a complete storyboard for your music video. Here's 
 -   **Music Video Style**: Choose the overall genre of your video from the dropdown. A "Narrative" style will focus on storytelling, while a "Performance" style will focus on the artist's performance.
 -   **Artistic Style**: Select a visual style from the extensive list. This is a key input that dictates the entire aesthetic of the generated shots, from "Cyberpunk" to "Oil Painting".
 -   **Song Length**: Enter the song's duration in `MM:SS` format (e.g., `03:45`). This helps the AI properly time and distribute the shots across the entire song.
--   **Image Prompt Format**: Choose the AI image generator you plan to use. The prompts will be tailored with the correct syntax and style for either Midjourney, Stable Diffusion 1.5, or FLUX AI.
+-   **Image Prompt Format**: Choose the AI image generator you plan to use. The prompts will be tailored for specific formats: Midjourney provides a descriptive, stylized prompt; Stable Diffusion 1.5 provides a tag-based prompt; and FLUX AI provides a verbose, single-sentence prompt.
 -   **Video Format**: Select `Horizontal 16:9` for standard widescreen videos or `Vertical 9:16` for mobile-first content like TikTok or Instagram Reels.
 -   **Shot Length (seconds)**: Determine the average length of each shot. Shorter lengths create a faster-paced video, while longer lengths create a slower, more deliberate feel.
 -   **Creative Temperature**: This slider controls the AI's creativity. Lower values produce more conventional and predictable results, while higher values lead to more unique and experimental ideas.
