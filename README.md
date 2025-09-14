@@ -1,20 +1,110 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# MV Director AI
 
-# Run and deploy your AI Studio app
+Crafting Your Visual Symphony, Shot by Shot.
 
-This contains everything you need to run your app locally.
+MV Director AI is an AI-powered application that generates a detailed music video shot list based on a song, lyrics, directorial style, and visual concepts. It can also generate creative transitions between scenes.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1Mtj-uFjsakkan8eJKUB1sOhN5kVEpxjI
+## Features
 
-## Run Locally
+-   **Full Music Video Shot List Generation**: Upload a song, lyrics, and an image of the artist to generate a complete shot-by-shot storyboard for your music video.
+-   **Scene Transition Generation**: Provide two video clips and get a creative transition shot to bridge them seamlessly.
+-   **Customizable Styles**: Define directorial, music video, and artistic styles to match your vision.
+-   **Multiple AI Prompt Formats**: Generate image prompts tailored for Midjourney, Stable Diffusion 1.5, and FLUX AI.
+-   **Exportable Results**: Download your shot list as a Markdown file and your image prompts as a text file for easy integration into your workflow.
 
-**Prerequisites:**  Node.js
+## How to Run Locally
 
+This section provides instructions for setting up and running the application on your local machine.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### Prerequisites
+-   Node.js
+
+### Instructions
+
+1.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
+
+2.  **Set the API Key**: Create a `.env.local` file in the root of your project and add your Gemini API key. The application code requires the variable to be named `API_KEY`.
+    ```
+    API_KEY="YOUR_API_KEY_HERE"
+    ```
+
+3.  **Run the app**:
+    ```bash
+    npm run dev
+    ```
+
+## How to Use
+
+### Full Music Video Generator
+
+This page helps you generate a complete storyboard for your music video. Here's a breakdown of each field:
+
+-   **Upload Song**: Upload the audio file (`.mp3`, `.wav`, etc.) for your music video. The AI analyzes the mood and structure of the music.
+-   **Upload Lyrics (.txt)**: Provide a `.txt` file with the song's lyrics. This is crucial for creating shots that align with the narrative and emotional content of the song.
+-   **Upload Actor/Singer Image**: Upload a clear image of the main artist. The AI uses this as a visual reference for the character in the video, influencing descriptions and prompts.
+-   **Actor/Singer's Name (Optional)**: Enter the artist's name. This can help the AI create more personalized and accurate descriptions.
+-   **Directorial Style**: Specify the style of a director you want to emulate (e.g., "Wes Anderson's symmetry and color palettes," "Guillermo del Toro's dark fantasy"). This guides the AI's choices in cinematography and mood.
+-   **Music Video Style**: Choose the overall genre of your video from the dropdown. A "Narrative" style will focus on storytelling, while a "Performance" style will focus on the artist's performance.
+-   **Artistic Style**: Select a visual style from the extensive list. This is a key input that dictates the entire aesthetic of the generated shots, from "Cyberpunk" to "Oil Painting".
+-   **Song Length**: Enter the song's duration in `MM:SS` format (e.g., `03:45`). This helps the AI properly time and distribute the shots across the entire song.
+-   **Image Prompt Format**: Choose the AI image generator you plan to use. The prompts will be tailored with the correct syntax and style for either Midjourney, Stable Diffusion 1.5, or FLUX AI.
+-   **Video Format**: Select `Horizontal 16:9` for standard widescreen videos or `Vertical 9:16` for mobile-first content like TikTok or Instagram Reels.
+-   **Shot Length (seconds)**: Determine the average length of each shot. Shorter lengths create a faster-paced video, while longer lengths create a slower, more deliberate feel.
+-   **Creative Temperature**: This slider controls the AI's creativity. Lower values produce more conventional and predictable results, while higher values lead to more unique and experimental ideas.
+-   **Generate Shot List**: Once all fields are filled, click this button to begin the generation process.
+
+### Scene Transition Generator
+
+This page is designed to create a single, compelling shot that bridges two existing scenes from your shot list.
+
+-   **MV Shot List (.md)**: Upload the `.md` shot list file you previously generated and saved. This gives the AI the full context of the project's style and narrative.
+-   **Upload Video for Scene 1 (From)**: Upload the video clip of the shot you are transitioning *from*. The AI will analyze the final frames for visual cues. After uploading, a **Last Frame (.png)** button will appear, allowing you to download a snapshot of the video's final frame for your reference.
+-   **Upload Video for Scene 2 (To)**: Upload the video clip of the shot you are transitioning *to*. The AI will analyze the opening frames. Similarly, a **First Frame (.png)** button will appear for downloading a snapshot of the video's first frame.
+-   **Transition From Shot #**: Select the number of the shot that the transition starts *after*.
+-   **Transition To Shot #**: Select the number of the shot that the transition leads *into*.
+-   **Directorial, Music Video, and Artistic Style**: These fields should typically match the styles you used for the full shot list to ensure consistency.
+-   **Video Format**: Ensure this matches the format of your main project.
+-   **Transition Length (sec)**: Choose the duration of the transition shot. 1-3 seconds is typical.
+-   **Creative Temperature**: Adjust the creativity for the transition idea.
+-   **Generate Transition**: Click this to generate the description and AI video prompt for your transition shot.
+
+## Examples
+
+### Full Music Video Generator
+The main interface for generating a full music video shot list from your creative inputs.
+
+![Full Music Video Generator](https://storage.googleapis.com/aide-user-images/179929a6-c743-42e6-921c-5d97f26d2e68.png)
+
+### Scene Transition Generator
+The interface for generating a transition between two video scenes.
+
+![Scene Transition Generator](https://storage.googleapis.com/aide-user-images/c702a4b8-f3b3-40f4-b258-2996d91f24d9.png)
+
+### Scene Transition Output Example
+An example of a generated transition sequence, bridging two scenes with a new creative shot.
+
+![Scene Transition Output Example](https://storage.googleapis.com/aide-user-images/651c6b1a-96bd-4c91-9556-3b1a20c35472.png)
+
+### Prompt Format Examples
+
+#### Midjourney
+An example of a generated shot list with prompts formatted for Midjourney.
+
+![Midjourney Prompt Example](https://storage.googleapis.com/aide-user-images/4f4e1f74-325d-4f62-b13c-0e7d70481079.png)
+
+#### Stable Diffusion 1.5
+An example of a generated shot list with prompts formatted for Stable Diffusion 1.5.
+
+![Stable Diffusion 1.5 Prompt Example](https://storage.googleapis.com/aide-user-images/f70cd565-d01f-42a1-b472-3c2243d9ac29.png)
+
+#### FLUX AI
+An example of a generated shot list with prompts formatted for FLUX AI.
+
+![FLUX AI Prompt Example](https://storage.googleapis.com/aide-user-images/a45e4f4c-1d70-449e-8c5e-855c82a7f519.png)
+
+## Credit
+
+If you use this application, please give credit to **SheaGryphon** or **Cortney Griffey**.
