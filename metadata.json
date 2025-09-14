@@ -1,0 +1,5 @@
+{
+  "name": "MV Director AI",
+  "description": "An AI-powered application that generates a detailed music video shot list based on a song, lyrics, directorial style, and visual concepts.",
+  "requestFramePermissions": []
+}
