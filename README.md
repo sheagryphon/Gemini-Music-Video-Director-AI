@@ -1,4 +1,3 @@
-
 # MV Director AI
 
 Crafting Your Visual Symphony, Shot by Shot.
@@ -77,34 +76,34 @@ This page is designed to create a single, compelling shot that bridges two exist
 ### Full Music Video Generator
 The main interface for generating a full music video shot list from your creative inputs.
 
-![Full Music Video Generator](https://storage.googleapis.com/aide-user-images/179929a6-c743-42e6-921c-5d97f26d2e68.png)
+![Full Music Video Generator](./images/full-music-video-generator.png)
 
 ### Scene Transition Generator
 The interface for generating a transition between two video scenes.
 
-![Scene Transition Generator](https://storage.googleapis.com/aide-user-images/c702a4b8-f3b3-40f4-b258-2996d91f24d9.png)
+![Scene Transition Generator](./images/scene-transition-generator.png)
 
 ### Scene Transition Output Example
 An example of a generated transition sequence, bridging two scenes with a new creative shot.
 
-![Scene Transition Output Example](https://storage.googleapis.com/aide-user-images/651c6b1a-96bd-4c91-9556-3b1a20c35472.png)
+![Scene Transition Output Example](./images/scene-transition-output-example.png)
 
 ### Prompt Format Examples
 
 #### Midjourney
 An example of a generated shot list with prompts formatted for Midjourney.
 
-![Midjourney Prompt Example](https://storage.googleapis.com/aide-user-images/4f4e1f74-325d-4f62-b13c-0e7d70481079.png)
+![Midjourney Prompt Example](./images/midjourney-prompt-example.png)
 
 #### Stable Diffusion 1.5
 An example of a generated shot list with prompts formatted for Stable Diffusion 1.5.
 
-![Stable Diffusion 1.5 Prompt Example](https://storage.googleapis.com/aide-user-images/f70cd565-d01f-42a1-b472-3c2243d9ac29.png)
+![Stable Diffusion 1.5 Prompt Example](./images/stable-diffusion-1.5-prompt-example.png)
 
 #### FLUX AI
 An example of a generated shot list with prompts formatted for FLUX AI.
 
-![FLUX AI Prompt Example](https://storage.googleapis.com/aide-user-images/a45e4f4c-1d70-449e-8c5e-855c82a7f519.png)
+![FLUX AI Prompt Example](./images/flux-ai-prompt-example.png)
 
 ## Credit & Support
 
