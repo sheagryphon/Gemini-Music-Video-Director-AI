@@ -26,11 +26,11 @@ This section provides instructions for setting up and running the application on
     npm install
     ```
 
-2.  **Set the API Key**: Create a `.env.local` file in the root of your project and add your Gemini API key. The application code requires the variable to be named `API_KEY`.
+2.  **Set the API Key**: Open the `.env.local` file and replace `YOUR_API_KEY_HERE` with your Gemini API key. The application code requires the variable to be named `API_KEY`.
     ```
     API_KEY="YOUR_API_KEY_HERE"
     ```
-
+    
 3.  **Run the app**:
     ```bash
     npm run dev
