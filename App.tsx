@@ -9,6 +9,7 @@ import ShotList from './components/ShotList';
 import Loader from './components/Loader';
 import { WandIcon } from './components/icons/WandIcon';
 import { DownloadIcon } from './components/icons/DownloadIcon';
+import { CoffeeIcon } from './components/icons/CoffeeIcon';
 
 const App: React.FC = () => {
   // Main form state
@@ -341,6 +342,18 @@ Transition Length: ${transitionFormState.transitionLength} seconds
             )}
           </div>
         </main>
+
+        <footer className="text-center mt-8 pt-6 border-t border-white/10">
+          <a
+            href="https://buymeacoffee.com/sheagryphon"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition-colors text-sm font-medium"
+          >
+            <CoffeeIcon />
+            <span>Enjoying MV Director AI? Buy me a coffee!</span>
+          </a>
+        </footer>
       </div>
     </div>
   );

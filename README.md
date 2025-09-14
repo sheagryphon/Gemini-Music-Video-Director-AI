@@ -1,3 +1,4 @@
+
 # MV Director AI
 
 Crafting Your Visual Symphony, Shot by Shot.
@@ -105,6 +106,10 @@ An example of a generated shot list with prompts formatted for FLUX AI.
 
 ![FLUX AI Prompt Example](https://storage.googleapis.com/aide-user-images/a45e4f4c-1d70-449e-8c5e-855c82a7f519.png)
 
-## Credit
+## Credit & Support
 
 If you use this application, please give credit to **SheaGryphon** or **Cortney Griffey**.
+
+If you find this tool helpful, consider supporting the creator by buying a coffee! ☕
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/sheagryphon)
