@@ -1,6 +1,7 @@
+
 import React, { useCallback, useState } from 'react';
 import type { TransitionFormState } from '../types';
-import { VIDEO_STYLES } from '../constants';
+import { VIDEO_STYLES, ART_STYLES } from '../constants';
 import { UploadIcon } from './icons/UploadIcon';
 import { DownloadIcon } from './icons/DownloadIcon';
 
@@ -42,17 +43,18 @@ const FileInput: React.FC<{
 const SelectInput: React.FC<{
     id: string;
     label: string;
-    value: string;
+    value: string | number;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     children: React.ReactNode;
-}> = ({ id, label, value, onChange, children }) => (
+    name?: string;
+}> = ({ id, label, value, onChange, children, name }) => (
     <div>
         <label htmlFor={id} className="block text-sm font-medium text-cyan-400 mb-2">
             {label}
         </label>
         <select
             id={id}
-            name={id}
+            name={name || id}
             value={value}
             onChange={onChange}
             className="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-colors appearance-none"
@@ -172,13 +174,21 @@ const TransitionForm: React.FC<TransitionFormProps> = ({ formState, setFormState
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      const { name, value } = e.target;
-      setFormState((prev) => ({ ...prev, [name]: value }));
+      const { name, value, type } = e.target;
+      let processedValue: string | number | 'horizontal' | 'vertical' = value;
+      if (type === 'range' || name === 'transitionLength') {
+          processedValue = parseFloat(value);
+      }
+      setFormState((prev) => ({ 
+        ...prev, 
+        [name]: processedValue 
+      }));
     },
     [setFormState]
   );
 
   const shotNumberOptions = Array.from({ length: 100 }, (_, i) => i + 1);
+  const transitionLengthOptions = Array.from({ length: 5 }, (_, i) => i + 1);
   
   return (
     <div className="space-y-6">
@@ -221,11 +231,11 @@ const TransitionForm: React.FC<TransitionFormProps> = ({ formState, setFormState
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <SelectInput id="fromShot" label="Transition From Shot #" value={formState.fromShot} onChange={handleInputChange}>
+            <SelectInput id="fromShot" name="fromShot" label="Transition From Shot #" value={formState.fromShot} onChange={handleInputChange}>
                  <option value="" disabled>Select shot</option>
                 {shotNumberOptions.map(num => <option key={`from-${num}`} value={num}>{num}</option>)}
             </SelectInput>
-            <SelectInput id="toShot" label="Transition To Shot #" value={formState.toShot} onChange={handleInputChange}>
+            <SelectInput id="toShot" name="toShot" label="Transition To Shot #" value={formState.toShot} onChange={handleInputChange}>
                  <option value="" disabled>Select shot</option>
                 {shotNumberOptions.map(num => <option key={`to-${num}`} value={num}>{num}</option>)}
             </SelectInput>
@@ -246,23 +256,47 @@ const TransitionForm: React.FC<TransitionFormProps> = ({ formState, setFormState
             />
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <SelectInput id="videoStyle" name="videoStyle" label="Music Video Style" value={formState.videoStyle} onChange={handleInputChange}>
+                <option value="" disabled>Select a style</option>
+                {VIDEO_STYLES.map((style) => (
+                    <option key={style} value={style}>{style}</option>
+                ))}
+            </SelectInput>
+             <SelectInput id="artStyle" name="artStyle" label="Artistic Style" value={formState.artStyle} onChange={handleInputChange}>
+                <option value="" disabled>Select an artistic style</option>
+                {ART_STYLES.map((style) => (
+                    <option key={style} value={style}>{style}</option>
+                ))}
+            </SelectInput>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <SelectInput id="format" name="format" label="Video Format" value={formState.format} onChange={handleInputChange}>
+                 <option value="horizontal">Horizontal 16:9</option>
+                 <option value="vertical">Vertical 9:16</option>
+            </SelectInput>
+            <SelectInput id="transitionLength" name="transitionLength" label="Transition Length (sec)" value={formState.transitionLength} onChange={handleInputChange}>
+                {transitionLengthOptions.map(sec => <option key={`len-${sec}`} value={sec}>{sec}</option>)}
+            </SelectInput>
+        </div>
+
         <div>
-            <label htmlFor="videoStyle" className="block text-sm font-medium text-cyan-400 mb-2">
-            Music Video Style Type
+            <label htmlFor="temperature" className="block text-sm font-medium text-cyan-400 mb-2">
+                Creative Temperature ({formState.temperature.toFixed(1)})
             </label>
-            <select
-            id="videoStyle"
-            name="videoStyle"
-            value={formState.videoStyle}
-            onChange={handleInputChange}
-            className="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-colors appearance-none"
-            style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
-            >
-            <option value="" disabled>Select a style</option>
-            {VIDEO_STYLES.map((style) => (
-                <option key={style} value={style}>{style}</option>
-            ))}
-            </select>
+            <input
+                type="range"
+                id="temperature"
+                name="temperature"
+                min="0.0"
+                max="2.0"
+                step="0.1"
+                value={formState.temperature}
+                onChange={handleInputChange}
+                className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:bg-purple-500 [&::-moz-range-thumb]:bg-purple-500"
+            />
+            <p className="text-xs text-gray-400 mt-1">Lower values are more predictable, while higher values generate more creative and diverse results.</p>
         </div>
     </div>
   );

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import type { Shot } from '../types';
 import { CopyIcon } from './icons/CopyIcon';
@@ -35,13 +36,13 @@ const ShotList: React.FC<ShotListProps> = ({ shots }) => {
             <p className="sm:col-span-2 mt-1"><strong className="text-gray-400">Description:</strong> {shot.shotDescription}</p>
           </div>
           <div className="mt-3">
-            {shot.midjourneyPrompt && (
+            {shot.imagePrompt && (
                 <>
-                    <p className="text-sm font-semibold text-gray-400 mb-1">Midjourney Prompt</p>
+                    <p className="text-sm font-semibold text-gray-400 mb-1">Image Prompt</p>
                     <div className="relative bg-gray-900 p-3 pr-10 rounded-md font-mono text-sm text-purple-300 border border-gray-700">
-                    <code>{shot.midjourneyPrompt}</code>
+                    <code>{shot.imagePrompt}</code>
                     <button
-                        onClick={() => handleCopy(shot.midjourneyPrompt!, shot.shotNumber)}
+                        onClick={() => handleCopy(shot.imagePrompt!, shot.shotNumber)}
                         className="absolute top-1/2 right-2 -translate-y-1/2 p-1 text-gray-400 hover:text-white rounded-md transition-colors"
                         aria-label="Copy prompt"
                     >

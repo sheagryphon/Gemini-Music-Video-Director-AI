@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback } from 'react';
 import type { FormState, Shot, TransitionFormState } from './types';
 import { generateShotList, generateTransitionShotList } from './services/geminiService';
@@ -17,7 +18,12 @@ const App: React.FC = () => {
     actorImageFile: null,
     directorialStyle: '',
     videoStyle: '',
+    artStyle: '',
     songLength: '',
+    promptFormat: 'midjourney',
+    temperature: 0.9,
+    shotLength: 6,
+    format: 'horizontal',
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +39,10 @@ const App: React.FC = () => {
     toShot: '',
     directorialStyle: '',
     videoStyle: '',
+    artStyle: '',
+    temperature: 0.9,
+    transitionLength: 2,
+    format: 'horizontal',
   });
   const [isTransitionLoading, setIsTransitionLoading] = useState(false);
   const [transitionError, setTransitionError] = useState<string | null>(null);
@@ -42,7 +52,7 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'main' | 'transition'>('main');
 
   const handleFormSubmit = useCallback(async () => {
-    if (!formState.songFile || !formState.lyricsFile || !formState.actorImageFile || !formState.directorialStyle || !formState.videoStyle || !formState.songLength) {
+    if (!formState.songFile || !formState.lyricsFile || !formState.actorImageFile || !formState.directorialStyle || !formState.videoStyle || !formState.artStyle || !formState.songLength || !formState.shotLength) {
       setError('Please fill out all fields and upload all required files.');
       return;
     }
@@ -63,7 +73,7 @@ const App: React.FC = () => {
   }, [formState]);
 
   const handleTransitionSubmit = useCallback(async () => {
-    if (!transitionFormState.shotListFile || !transitionFormState.scene1VideoFile || !transitionFormState.scene2VideoFile || !transitionFormState.fromShot || !transitionFormState.toShot || !transitionFormState.directorialStyle || !transitionFormState.videoStyle) {
+    if (!transitionFormState.shotListFile || !transitionFormState.scene1VideoFile || !transitionFormState.scene2VideoFile || !transitionFormState.fromShot || !transitionFormState.toShot || !transitionFormState.directorialStyle || !transitionFormState.videoStyle || !transitionFormState.artStyle || !transitionFormState.transitionLength) {
       setTransitionError('Please fill out all fields and upload all required files.');
       return;
     }
@@ -96,32 +106,88 @@ const App: React.FC = () => {
 
   const handleSaveShotList = () => {
     if (!shotList) return;
-    const content = shotList.map(shot => `
-## Shot ${shot.shotNumber} (${shot.timestamp})
+
+    const settingsHeader = `# MV Director AI - Generation Settings
+
+- **Song File**: ${formState.songFile?.name || 'N/A'}
+- **Lyrics File**: ${formState.lyricsFile?.name || 'N/A'}
+- **Actor/Singer Image**: ${formState.actorImageFile?.name || 'N/A'}
+- **Directorial Style**: ${formState.directorialStyle}
+- **Music Video Style**: ${formState.videoStyle}
+- **Artistic Style**: ${formState.artStyle}
+- **Song Length**: ${formState.songLength}
+- **Video Format**: ${formState.format === 'vertical' ? 'Vertical 9:16' : 'Horizontal 16:9'}
+- **Image Prompt Format**: ${formState.promptFormat}
+- **Creative Temperature**: ${formState.temperature.toFixed(1)}
+- **Shot Length**: ${formState.shotLength} seconds
+
+---
+
+`;
+
+    const content = shotList.map(shot => `## Shot ${shot.shotNumber} (${shot.timestamp})
 
 - **Location:** ${shot.location}
 - **Camera:** ${shot.cameraAngle}
 - **Lighting:** ${shot.lighting}
 - **Description:** ${shot.shotDescription}
 
-### Midjourney Prompt
+### Image Prompt
 \`\`\`
-${shot.midjourneyPrompt}
+${shot.imagePrompt}
 \`\`\`
     `).join('\n---\n');
-    downloadFile(content, 'mv-shot-list.md', 'text/markdown');
+    
+    const baseFileName = formState.songFile?.name.replace(/\.[^/.]+$/, "") || 'mv';
+    downloadFile(settingsHeader + content, `${baseFileName}-shot-list.md`, 'text/markdown');
   };
 
   const handleSavePrompts = () => {
     if (!shotList) return;
-    const content = shotList.map(shot => shot.midjourneyPrompt).join('\n\n');
-    downloadFile(content, 'mv-image-prompts.txt', 'text/plain');
+    
+    const settingsHeader = `MV Director AI - Generation Settings
+=====================================
+Song File: ${formState.songFile?.name || 'N/A'}
+Lyrics File: ${formState.lyricsFile?.name || 'N/A'}
+Actor/Singer Image: ${formState.actorImageFile?.name || 'N/A'}
+Directorial Style: ${formState.directorialStyle}
+Music Video Style: ${formState.videoStyle}
+Artistic Style: ${formState.artStyle}
+Song Length: ${formState.songLength}
+Video Format: ${formState.format === 'vertical' ? 'Vertical 9:16' : 'Horizontal 16:9'}
+Image Prompt Format: ${formState.promptFormat}
+Creative Temperature: ${formState.temperature.toFixed(1)}
+Shot Length: ${formState.shotLength} seconds
+=====================================
+
+`;
+    const content = shotList.map(shot => shot.imagePrompt).join('\n\n');
+    const baseFileName = formState.songFile?.name.replace(/\.[^/.]+$/, "") || 'mv';
+    downloadFile(settingsHeader + content, `${baseFileName}-image-prompts.txt`, 'text/plain');
   };
 
   const handleSaveTransitionShotList = () => {
     if (!transitionShotList) return;
-    const content = transitionShotList.map(shot => `
-## Transition Shot ${shot.shotNumber} (${shot.timestamp})
+
+    const settingsHeader = `# MV Director AI - Transition Generation Settings
+
+- **Shot List File**: ${transitionFormState.shotListFile?.name || 'N/A'}
+- **Scene 1 Video (From)**: ${transitionFormState.scene1VideoFile?.name || 'N/A'}
+- **Scene 2 Video (To)**: ${transitionFormState.scene2VideoFile?.name || 'N/A'}
+- **Transition From Shot**: #${transitionFormState.fromShot}
+- **Transition To Shot**: #${transitionFormState.toShot}
+- **Directorial Style**: ${transitionFormState.directorialStyle}
+- **Music Video Style**: ${transitionFormState.videoStyle}
+- **Artistic Style**: ${transitionFormState.artStyle}
+- **Video Format**: ${transitionFormState.format === 'vertical' ? 'Vertical 9:16' : 'Horizontal 16:9'}
+- **Creative Temperature**: ${transitionFormState.temperature.toFixed(1)}
+- **Transition Length**: ${transitionFormState.transitionLength} seconds
+
+---
+
+`;
+
+    const content = transitionShotList.map(shot => `## Transition Shot ${shot.shotNumber} (${shot.timestamp})
 
 - **Location:** ${shot.location}
 - **Camera:** ${shot.cameraAngle}
@@ -133,13 +199,33 @@ ${shot.midjourneyPrompt}
 ${shot.videoPrompt}
 \`\`\`
     `).join('\n---\n');
-    downloadFile(content, 'mv-transition-shots.md', 'text/markdown');
+
+    const baseFileName = `scene ${transitionFormState.fromShot} - ${transitionFormState.toShot} transition`;
+    downloadFile(settingsHeader + content, `${baseFileName}-shots.md`, 'text/markdown');
   };
 
   const handleSaveTransitionPrompts = () => {
     if (!transitionShotList) return;
+    
+    const settingsHeader = `MV Director AI - Transition Generation Settings
+================================================
+Shot List File: ${transitionFormState.shotListFile?.name || 'N/A'}
+Scene 1 Video (From): ${transitionFormState.scene1VideoFile?.name || 'N/A'}
+Scene 2 Video (To): ${transitionFormState.scene2VideoFile?.name || 'N/A'}
+Transition From Shot: #${transitionFormState.fromShot}
+Transition To Shot: #${transitionFormState.toShot}
+Directorial Style: ${transitionFormState.directorialStyle}
+Music Video Style: ${transitionFormState.videoStyle}
+Artistic Style: ${transitionFormState.artStyle}
+Video Format: ${transitionFormState.format === 'vertical' ? 'Vertical 9:16' : 'Horizontal 16:9'}
+Creative Temperature: ${transitionFormState.temperature.toFixed(1)}
+Transition Length: ${transitionFormState.transitionLength} seconds
+================================================
+
+`;
     const content = transitionShotList.map(shot => shot.videoPrompt).join('\n\n');
-    downloadFile(content, 'mv-transition-video-prompts.txt', 'text/plain');
+    const baseFileName = `scene ${transitionFormState.fromShot} - ${transitionFormState.toShot} transition`;
+    downloadFile(settingsHeader + content, `${baseFileName}-prompts.txt`, 'text/plain');
   };
 
   const tabClass = (tabName: 'main' | 'transition') => 

@@ -1,10 +1,16 @@
+
 export interface FormState {
   songFile: File | null;
   lyricsFile: File | null;
   actorImageFile: File | null;
   directorialStyle: string;
   videoStyle: string;
+  artStyle: string;
   songLength: string;
+  promptFormat: 'midjourney' | 'stable-diffusion' | 'flux-ai';
+  temperature: number;
+  shotLength: number;
+  format: 'horizontal' | 'vertical';
 }
 
 export interface TransitionFormState {
@@ -15,6 +21,10 @@ export interface TransitionFormState {
   toShot: string;
   directorialStyle: string;
   videoStyle: string;
+  artStyle: string;
+  temperature: number;
+  transitionLength: number;
+  format: 'horizontal' | 'vertical';
 }
 
 export interface Shot {
@@ -24,6 +34,6 @@ export interface Shot {
   shotDescription: string;
   lighting: string;
   location: string;
-  midjourneyPrompt?: string; // Kept for main shot list, optional now
+  imagePrompt?: string; // Renamed from midjourneyPrompt for generality
   videoPrompt?: string; // For transition shots
 }
