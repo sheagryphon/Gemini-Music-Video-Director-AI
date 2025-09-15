@@ -26,7 +26,10 @@ This section provides instructions for setting up and running the application on
 2.  **Install NPM and run the app**:
     Run the 2_setp_npm_and_run_npm.bat to both install and run the NPM server.
 
-3. **Enter API Key**: Once the application is running, open it in your browser. You will see an input field for your **Gemini API Key** under the site Header. Paste your key into this field to enable the app's features. The key will be saved in your browser's local storage for future sessions.
+3. **Enter API Key**: Once the application is running, open it in your browser. You will see an input field for your **Gemini API Key** under the site Header. Paste your key into this field to enable the app's features. The key will be saved in your browser's local storage for future sessions. If you don not know         where to locate your google gemini API key;
+   1. Go to https://aistudio.google.com/apikey
+   2. You'll be greeted with the following pop-up if you don not have one already (./images/api_key_intro.jpg) and choose "Build with Gemini API Get API Key"
+   3. In The top right corner Click the "+ Create API KEY" button (./images/api_key.jpg)
 
 ## How to Use
 
