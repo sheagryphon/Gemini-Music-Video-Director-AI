@@ -17,22 +17,16 @@ MV Director AI is an AI-powered application that generates a detailed music vide
 
 This section provides instructions for setting up and running the application on your local machine.
 
-### Prerequisites
--   Node.js
 
 ### Instructions
 
 1.  **Install dependencies**:
-    ```bash
-    npm install
-    ```
+    Run the 1_setup_node_js.bat file to install Node.js.
     
-2.  **Run the app**:
-    ```bash
-    npm run dev
-    ```
+2.  **Install NPM and run the app**:
+    Run the 2_setp_npm_and_run_npm.bat to both install and run the NPM server.
 
-3. **Enter API Key**: Once the application is running, open it in your browser. You will see an input field for your **Gemini API Key**. Paste your key into this field to enable the app's features. The key will be saved in your browser's local storage for future sessions.
+3. **Enter API Key**: Once the application is running, open it in your browser. You will see an input field for your **Gemini API Key** under the site Header. Paste your key into this field to enable the app's features. The key will be saved in your browser's local storage for future sessions.
 
 ## How to Use
 
@@ -40,7 +34,7 @@ This section provides instructions for setting up and running the application on
 
 Before you begin, you must enter a valid **Gemini API Key** in the input field at the top of the application. The application will not work without it.
 
-### Full Music Video Generator
+### Full Music Video Shot List Generator
 
 This page helps you generate a complete storyboard for your music video. Here's a breakdown of each field:
 
