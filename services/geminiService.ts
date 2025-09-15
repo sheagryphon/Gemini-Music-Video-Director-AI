@@ -2,11 +2,12 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { FormState, Shot, TransitionFormState } from '../types';
 
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
-}
-
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const createAiClient = (apiKey: string): GoogleGenAI => {
+    if (!apiKey) {
+        throw new Error("API key is missing. Please enter your Gemini API key in the input field.");
+    }
+    return new GoogleGenAI({ apiKey });
+};
 
 const fileToGenerativePart = async (file: File) => {
   const base64EncodedData = await new Promise<string>((resolve, reject) => {
@@ -54,11 +55,12 @@ const getPromptFormatInstructions = (promptFormat: FormState['promptFormat'], as
     }
 }
 
-export const generateShotList = async (formState: FormState): Promise<Shot[]> => {
+export const generateShotList = async (formState: FormState, apiKey: string): Promise<Shot[]> => {
   if (!formState.actorImageFile || !formState.lyricsFile) {
       throw new Error("Missing required files");
   }
 
+  const ai = createAiClient(apiKey);
   const actorImagePart = await fileToGenerativePart(formState.actorImageFile);
   const lyricsText = await fileToText(formState.lyricsFile);
   const promptInstructions = getPromptFormatInstructions(formState.promptFormat, formState.format);
@@ -144,11 +146,12 @@ export const generateShotList = async (formState: FormState): Promise<Shot[]> =>
 };
 
 
-export const generateTransitionShotList = async (formState: TransitionFormState): Promise<Shot[]> => {
+export const generateTransitionShotList = async (formState: TransitionFormState, apiKey: string): Promise<Shot[]> => {
   if (!formState.shotListFile || !formState.scene1VideoFile || !formState.scene2VideoFile) {
       throw new Error("Missing required files for transition generation.");
   }
 
+  const ai = createAiClient(apiKey);
   const shotListText = await fileToText(formState.shotListFile);
   const scene1VideoPart = await fileToGenerativePart(formState.scene1VideoFile);
   const scene2VideoPart = await fileToGenerativePart(formState.scene2VideoFile);

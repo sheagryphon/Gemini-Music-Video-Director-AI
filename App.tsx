@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import type { FormState, Shot, TransitionFormState } from './types';
 import { generateShotList, generateTransitionShotList } from './services/geminiService';
 import Header from './components/Header';
@@ -10,6 +10,7 @@ import Loader from './components/Loader';
 import { WandIcon } from './components/icons/WandIcon';
 import { DownloadIcon } from './components/icons/DownloadIcon';
 import { CoffeeIcon } from './components/icons/CoffeeIcon';
+import { KeyIcon } from './components/icons/KeyIcon';
 
 const App: React.FC = () => {
   // Main form state
@@ -53,7 +54,18 @@ const App: React.FC = () => {
   // Tab state
   const [activeTab, setActiveTab] = useState<'main' | 'transition'>('main');
 
+  // API Key state
+  const [apiKey, setApiKey] = useState<string>(() => localStorage.getItem('gemini_api_key') || '');
+
+  useEffect(() => {
+    localStorage.setItem('gemini_api_key', apiKey);
+  }, [apiKey]);
+
   const handleFormSubmit = useCallback(async () => {
+    if (!apiKey) {
+      setError('Please enter your Gemini API Key above.');
+      return;
+    }
     if (!formState.songFile || !formState.lyricsFile || !formState.actorImageFile || !formState.directorialStyle || !formState.videoStyle || !formState.artStyle || !formState.songLength || !formState.shotLength) {
       setError('Please fill out all fields and upload all required files.');
       return;
@@ -64,7 +76,7 @@ const App: React.FC = () => {
     setShotList(null);
 
     try {
-      const generatedList = await generateShotList(formState);
+      const generatedList = await generateShotList(formState, apiKey);
       setShotList(generatedList);
     } catch (e) {
       console.error(e);
@@ -72,9 +84,13 @@ const App: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [formState]);
+  }, [formState, apiKey]);
 
   const handleTransitionSubmit = useCallback(async () => {
+    if (!apiKey) {
+      setTransitionError('Please enter your Gemini API Key above.');
+      return;
+    }
     if (!transitionFormState.shotListFile || !transitionFormState.scene1VideoFile || !transitionFormState.scene2VideoFile || !transitionFormState.fromShot || !transitionFormState.toShot || !transitionFormState.directorialStyle || !transitionFormState.videoStyle || !transitionFormState.artStyle || !transitionFormState.transitionLength) {
       setTransitionError('Please fill out all fields and upload all required files.');
       return;
@@ -85,7 +101,7 @@ const App: React.FC = () => {
     setTransitionShotList(null);
 
     try {
-      const generatedList = await generateTransitionShotList(transitionFormState);
+      const generatedList = await generateTransitionShotList(transitionFormState, apiKey);
       setTransitionShotList(generatedList);
     } catch (e) {
       console.error(e);
@@ -93,7 +109,7 @@ const App: React.FC = () => {
     } finally {
       setIsTransitionLoading(false);
     }
-  }, [transitionFormState]);
+  }, [transitionFormState, apiKey]);
 
   const downloadFile = (content: string, fileName: string, contentType: string) => {
     const a = document.createElement("a");
@@ -245,8 +261,27 @@ Transition Length: ${transitionFormState.transitionLength} seconds
       <div className="w-full max-w-7xl mx-auto bg-black/40 backdrop-blur-lg p-6 sm:p-8 rounded-2xl border border-white/10 shadow-2xl shadow-black/50">
         <Header />
 
+        <div className="my-6">
+          <label htmlFor="apiKey" className="flex items-center gap-2 text-sm font-medium text-yellow-400 mb-2">
+            <KeyIcon />
+            Gemini API Key
+          </label>
+          <input
+            type="password"
+            id="apiKey"
+            name="apiKey"
+            value={apiKey}
+            onChange={(e) => setApiKey(e.target.value)}
+            placeholder="Enter your Gemini API key here"
+            className="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition-colors"
+            aria-label="Gemini API Key"
+          />
+           <p className="text-xs text-gray-400 mt-1">Your key is stored locally in your browser and never sent to our servers.</p>
+        </div>
+
+
         {/* Tab Navigation */}
-        <div className="flex border-b border-gray-700 mt-6">
+        <div className="flex border-b border-gray-700">
           <button onClick={() => setActiveTab('main')} className={tabClass('main')}>
             Full Music Video
           </button>

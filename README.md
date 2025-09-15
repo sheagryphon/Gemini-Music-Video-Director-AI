@@ -1,3 +1,4 @@
+
 # MV Director AI
 
 Crafting Your Visual Symphony, Shot by Shot.
@@ -25,18 +26,19 @@ This section provides instructions for setting up and running the application on
     ```bash
     npm install
     ```
-
-2.  **Set the API Key**: Open the `.env.local` file and replace `YOUR_API_KEY_HERE` with your Gemini API key. The application code requires the variable to be named `API_KEY`.
-    ```
-    API_KEY="YOUR_API_KEY_HERE"
-    ```
     
-3.  **Run the app**:
+2.  **Run the app**:
     ```bash
     npm run dev
     ```
 
+3. **Enter API Key**: Once the application is running, open it in your browser. You will see an input field for your **Gemini API Key**. Paste your key into this field to enable the app's features. The key will be saved in your browser's local storage for future sessions.
+
 ## How to Use
+
+### Getting Started
+
+Before you begin, you must enter a valid **Gemini API Key** in the input field at the top of the application. The application will not work without it.
 
 ### Full Music Video Generator
 
